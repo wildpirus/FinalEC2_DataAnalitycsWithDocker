@@ -1,0 +1,60 @@
+version: "3.8"
+services:
+
+  db:
+    container_name: postgres_db
+    image: postgres
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: test_db
+    ports:
+      - "5432:5432"
+    networks:
+      app_net:
+        ipv4_address: 192.168.0.2  
+  
+  datascience-demo:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment: 
+      - JUPYTER_TOKEN=hi
+    volumes:
+      - .:/datascience
+    ports:
+      - 8888:8888
+    networks:
+      app_net:
+        ipv4_address: 192.168.0.3
+    container_name: datascience-demo
+    depends_on: 
+      - db
+  
+  dash_server:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dash
+    container_name: dash_server
+    restart: always
+    command: python main.py
+    volumes:
+    -  .:/datascience
+    ports:
+    - "8080:8080"
+    networks:
+      app_net:
+        ipv4_address: 192.168.0.4
+    depends_on:
+    - db
+    - datascience-demo
+
+networks:
+  app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: "192.168.0.0/24"

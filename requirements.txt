@@ -1,0 +1,6 @@
+psycopg2>=2.8.6
+dash==1.11.0
+dash_core_components
+dash_html_components
+plotly.express
+matplotlib
