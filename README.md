@@ -2,8 +2,8 @@
 ## Integrantes:
 * Daniel Carrillo
 * Victor Mendoza
+* * Amstrong Monachello
 * Andres Prieto
-* Amstrong Monachello
 
 Password para entrar al Jupyter: hi
 
