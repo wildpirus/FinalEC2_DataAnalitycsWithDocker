@@ -5,4 +5,4 @@
 * Andres Prieto
 * Amstrong Monachello
 
-Password para entrar al Jupyter: h
+Password para entrar al Jupyter: hi
